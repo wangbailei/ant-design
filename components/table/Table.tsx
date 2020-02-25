@@ -413,6 +413,10 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
     [`${prefixCls}-wrapper-rtl`]: direction === 'rtl',
   });
 
+  const [usedY, setUsedY] = React.useState<number | undefined>(
+    typeof scroll?.y === 'number' ? scroll.y : undefined,
+  );
+
   const calcBodyHeight = React.useCallback(
     // 别处用的debounce，我感觉resize应该throttle才对吧？？？
     throttle(() => {
@@ -456,10 +460,6 @@ function Table<RecordType extends object = any>(props: TableProps<RecordType>) {
       }
     }, 100),
     [],
-  );
-
-  const [usedY, setUsedY] = React.useState<number | undefined>(
-    typeof scroll?.y === 'number' ? scroll.y : undefined,
   );
 
   React.useEffect(() => {
